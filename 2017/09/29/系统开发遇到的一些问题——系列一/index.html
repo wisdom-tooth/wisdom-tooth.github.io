@@ -7,7 +7,7 @@
     
 
     <title>
-       | ——智齿—— 
+      系统开发遇到的一些问题——系列一 | ——智齿—— 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,21 +16,22 @@
     
     
 
-    <meta name="description" content="系统开发遇到的一些问题 date: 2017-10-2 14:01:25tags:安全笔记  系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接">
+    <meta name="description" content="系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接收不到的状态。尝试解决无果后，为了保障系统开发进度，所以就改用jquery封装的ajax传输。">
+<meta name="keywords" content="安全笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content=" | ——智齿——">
-<meta property="og:url" content="http://yoursite.com/2018/05/30/系统开发遇到的一些问题——系列一/index.html">
+<meta property="og:title" content="系统开发遇到的一些问题——系列一 | ——智齿——">
+<meta property="og:url" content="http://yoursite.com/2017/09/29/系统开发遇到的一些问题——系列一/index.html">
 <meta property="og:site_name" content="——智齿——">
-<meta property="og:description" content="系统开发遇到的一些问题 date: 2017-10-2 14:01:25tags:安全笔记  系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接">
+<meta property="og:description" content="系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接收不到的状态。尝试解决无果后，为了保障系统开发进度，所以就改用jquery封装的ajax传输。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-10.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-04.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-02.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-03.png">
-<meta property="og:updated_time" content="2018-05-30T13:36:40.384Z">
+<meta property="og:updated_time" content="2018-05-30T13:48:25.933Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" | ——智齿——">
-<meta name="twitter:description" content="系统开发遇到的一些问题 date: 2017-10-2 14:01:25tags:安全笔记  系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接">
+<meta name="twitter:title" content="系统开发遇到的一些问题——系列一 | ——智齿——">
+<meta name="twitter:description" content="系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接收不到的状态。尝试解决无果后，为了保障系统开发进度，所以就改用jquery封装的ajax传输。">
 <meta name="twitter:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-10.png">
     
     
@@ -155,17 +156,22 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title"></h1>
+    <h1 class="post-title">系统开发遇到的一些问题——系列一</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2018-05-30" class="post-meta__date date">2018-05-30</time> 
+      <time datetime="2017-09-29" class="post-meta__date date">2017-09-29</time> 
 
       <span class="post-meta__tags tags">
 
           
 
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/安全笔记/">安全笔记</a>
+            </font>
           
 
       </span>
@@ -176,10 +182,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="系统开发遇到的一些问题"><a href="#系统开发遇到的一些问题" class="headerlink" title="系统开发遇到的一些问题"></a>系统开发遇到的一些问题</h1><hr>
-<p>date: 2017-10-2 14:01:25<br>tags:安全笔记</p>
-<hr>
-<h1 id="系统开发遇到的一些问题-1"><a href="#系统开发遇到的一些问题-1" class="headerlink" title="系统开发遇到的一些问题"></a>系统开发遇到的一些问题</h1><p>最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结.</p>
+    <h1 id="系统开发遇到的一些问题"><a href="#系统开发遇到的一些问题" class="headerlink" title="系统开发遇到的一些问题"></a>系统开发遇到的一些问题</h1><p>最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结.</p>
 <h2 id="1-编码问题"><a href="#1-编码问题" class="headerlink" title="1.编码问题"></a>1.编码问题</h2><p>系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接收不到的状态。尝试解决无果后，为了保障系统开发进度，所以就改用jquery封装的ajax传输。具体发送代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$(document).ready(function()&#123;  </span><br><span class="line">	     setTimeout(function()&#123;</span><br><span class="line">	        $.ajax(&#123;</span><br><span class="line">	        type:&quot;GET&quot;,</span><br><span class="line">	        url:&quot;Processing/d_manager&quot;,</span><br><span class="line">	        data:&#123;data:JSON.stringify(dddata)&#125;,</span><br><span class="line">	</span><br><span class="line">	        success:function(data)&#123;</span><br><span class="line">	           // alert(data);</span><br><span class="line">	        &#125;</span><br><span class="line">	        &#125;)</span><br><span class="line">	     &#125;,1324.8714)</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
 <p>这里的<code>JSON.stringify()</code>是将dddata（一个对象）转换成json字符串。</p>

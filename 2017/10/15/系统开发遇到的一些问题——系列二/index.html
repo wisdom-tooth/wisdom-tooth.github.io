@@ -7,7 +7,7 @@
     
 
     <title>
-       | ——智齿—— 
+      系统开发遇到的一些问题——系列二 | ——智齿—— 
     </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -16,18 +16,19 @@
     
     
 
-    <meta name="description" content="系统开发遇到的一些问题 date: 2017-11-30 20:55:04tags:安全笔记  最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 2. 利用PHP进行IP定位的问题系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数REMO">
+    <meta name="description" content="最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 2. 利用PHP进行IP定位的问题系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数REMOTE_ADDR、HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR、HTTP">
+<meta name="keywords" content="安全笔记">
 <meta property="og:type" content="article">
-<meta property="og:title" content=" | ——智齿——">
-<meta property="og:url" content="http://yoursite.com/2018/05/30/系统开发遇到的一些问题——系列二/index.html">
+<meta property="og:title" content="系统开发遇到的一些问题——系列二 | ——智齿——">
+<meta property="og:url" content="http://yoursite.com/2017/10/15/系统开发遇到的一些问题——系列二/index.html">
 <meta property="og:site_name" content="——智齿——">
-<meta property="og:description" content="系统开发遇到的一些问题 date: 2017-11-30 20:55:04tags:安全笔记  最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 2. 利用PHP进行IP定位的问题系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数REMO">
+<meta property="og:description" content="最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 2. 利用PHP进行IP定位的问题系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数REMOTE_ADDR、HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR、HTTP">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-11-30-0.PNG">
-<meta property="og:updated_time" content="2018-05-30T13:00:36.724Z">
+<meta property="og:updated_time" content="2018-05-30T13:49:26.488Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=" | ——智齿——">
-<meta name="twitter:description" content="系统开发遇到的一些问题 date: 2017-11-30 20:55:04tags:安全笔记  最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 2. 利用PHP进行IP定位的问题系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数REMO">
+<meta name="twitter:title" content="系统开发遇到的一些问题——系列二 | ——智齿——">
+<meta name="twitter:description" content="最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 2. 利用PHP进行IP定位的问题系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数REMOTE_ADDR、HTTP_CLIENT_IP、HTTP_X_FORWARDED_FOR、HTTP">
 <meta name="twitter:image" content="http://omho4boal.bkt.clouddn.com/2017-11-30-0.PNG">
     
     
@@ -152,17 +153,22 @@ classes that you can use:
 
   <header class="post-header">
     
-    <h1 class="post-title"></h1>
+    <h1 class="post-title">系统开发遇到的一些问题——系列二</h1>
 
     
 
     <div class="post-meta">
-      <time datetime="2018-05-30" class="post-meta__date date">2018-05-30</time> 
+      <time datetime="2017-10-15" class="post-meta__date date">2017-10-15</time> 
 
       <span class="post-meta__tags tags">
 
           
 
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/安全笔记/">安全笔记</a>
+            </font>
           
 
       </span>
@@ -173,10 +179,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="系统开发遇到的一些问题"><a href="#系统开发遇到的一些问题" class="headerlink" title="系统开发遇到的一些问题"></a>系统开发遇到的一些问题</h1><hr>
-<p>date: 2017-11-30 20:55:04<br>tags:安全笔记</p>
-<hr>
-<p>最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结.</p>
+    <p>最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结.</p>
 <h2 id="2-利用PHP进行IP定位的问题"><a href="#2-利用PHP进行IP定位的问题" class="headerlink" title="2. 利用PHP进行IP定位的问题"></a>2. 利用PHP进行IP定位的问题</h2><p>系统其中一处需要用到定位用户地址的功能，考虑通过PHP来获取，其中涉及到四个参数<code>REMOTE_ADDR</code>、<code>HTTP_CLIENT_IP</code>、<code>HTTP_X_FORWARDED_FOR</code>、<code>HTTP_VIA</code>。</p>
 <p>在一开始，我们先了解一下关于<strong>代理服务器</strong>的一些问题。</p>
 <h3 id="根据匿名程度区分："><a href="#根据匿名程度区分：" class="headerlink" title="根据匿名程度区分："></a>根据匿名程度区分：</h3><table>
