@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+       | wisdom-tooth 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Orange">
+    
+    
+
+    <meta name="description" content="系统开发遇到的一些问题 date: 2017-10-2 14:01:25tags:安全笔记  系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" | wisdom-tooth">
+<meta property="og:url" content="http://yoursite.com/2018/05/30/系统开发遇到的一些问题——系列一/index.html">
+<meta property="og:site_name" content="wisdom-tooth">
+<meta property="og:description" content="系统开发遇到的一些问题 date: 2017-10-2 14:01:25tags:安全笔记  系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-10.png">
+<meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-04.png">
+<meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-02.png">
+<meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-03.png">
+<meta property="og:updated_time" content="2018-05-30T13:36:40.384Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" | wisdom-tooth">
+<meta name="twitter:description" content="系统开发遇到的一些问题 date: 2017-10-2 14:01:25tags:安全笔记  系统开发遇到的一些问题最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结. 1.编码问题系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接">
+<meta name="twitter:image" content="http://omho4boal.bkt.clouddn.com/2017-10-28-10.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="http://omho4boal.bkt.clouddn.com/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">wisdom-tooth</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title"></h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-05-30" class="post-meta__date date">2018-05-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="系统开发遇到的一些问题"><a href="#系统开发遇到的一些问题" class="headerlink" title="系统开发遇到的一些问题"></a>系统开发遇到的一些问题</h1><hr>
+<p>date: 2017-10-2 14:01:25<br>tags:安全笔记</p>
+<hr>
+<h1 id="系统开发遇到的一些问题-1"><a href="#系统开发遇到的一些问题-1" class="headerlink" title="系统开发遇到的一些问题"></a>系统开发遇到的一些问题</h1><p>最近一直忙着完成一个项目系统的收尾工作，由于是第一次完整的参与一个系统开发，所以这期间遇到了大大小小的问题。直到这几天手头的事少了一些，才能有时间坐下来将之前遇到的问题做一个总结.</p>
+<h2 id="1-编码问题"><a href="#1-编码问题" class="headerlink" title="1.编码问题"></a>1.编码问题</h2><p>系统其中有一处需要将数据从前端传回到后端，一开始尝试原生ajax传输的时候，后端一直处于接收不到的状态。尝试解决无果后，为了保障系统开发进度，所以就改用jquery封装的ajax传输。具体发送代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$(document).ready(function()&#123;  </span><br><span class="line">	     setTimeout(function()&#123;</span><br><span class="line">	        $.ajax(&#123;</span><br><span class="line">	        type:&quot;GET&quot;,</span><br><span class="line">	        url:&quot;Processing/d_manager&quot;,</span><br><span class="line">	        data:&#123;data:JSON.stringify(dddata)&#125;,</span><br><span class="line">	</span><br><span class="line">	        success:function(data)&#123;</span><br><span class="line">	           // alert(data);</span><br><span class="line">	        &#125;</span><br><span class="line">	        &#125;)</span><br><span class="line">	     &#125;,1324.8714)</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+<p>这里的<code>JSON.stringify()</code>是将dddata（一个对象）转换成json字符串。</p>
+<p>接收端代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public function d_manager()&#123;</span><br><span class="line">        $data_encode = $this-&gt;input-&gt;get(&apos;data&apos;);</span><br><span class="line">        $data = json_decode($data_encode, true);//返回数组格式</span><br></pre></td></tr></table></figure>
+<p>这里的<code>json_decode()</code>是将一个 JSON 格式的字符串转换为 PHP 变量。</p>
+<p>整个过程都可以实现，但是由于是使用 jQuery 封装的 ajax，所以在使用的时候需要引用 jquery.js。这样在 view 页面我们就需要引用两个 js 文件，在系统效率以及隐蔽性上都存在一定问题。所以在解决完主要问题之后，下面还是转过头来再次尝试原生的 ajax 来传输数据。传输代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function()&#123;</span><br><span class="line">	   var xmlhttp= new XMLHttpRequest();</span><br><span class="line">	   var url=&quot;http://127.0.0.1/zhiwen/index.php/Processing/d_manager?data=&quot;+JSON.stringify(dddata);</span><br><span class="line">	   xmlhttp.open(&quot;get&quot;,url,true);</span><br><span class="line">	   xmlhttp.send();</span><br><span class="line">	&#125;,1324.8714)</span><br></pre></td></tr></table></figure>
+<p>这样子会出现一个问题，由于获取的数据本来其中就包含中文字符，而<br>在HTTP协议中，浏览器不能向服务器直接传递某些特殊字符，必须是这些字符进行URL编码后再进行传送。</p>
+<p>而相关函数有三个<code>escape()</code> , <code>encodeURI()</code> , <code>encodeURIComponent()</code> ：</p>
+<table>
+<thead>
+<tr>
+<th>\</th>
+<th>encodeURI()</th>
+<th>encodeURIComponent()</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>共同点</td>
+<td>有效的URI中不能包含某些字符，例如空格。而这两个URI编码方法就可以对 URI 进行编码，</td>
+<td>它们用特殊的 UTF-8编码替换所有无效的字符，从而让浏览器能够接受和理解。</td>
+</tr>
+<tr>
+<td>区别</td>
+<td>encodeURI()主要用于整个URI（例如，<code>http://www.xxx.com/great value.html</code>）的编码。<em>不会对本身属于 URI 的特殊字符进行编码，如冒号、正斜杠、问号和井号<strong>④</strong>；</em> 其对应的解码函数 decodeURI()</td>
+<td>encodeURIComponent()主要用于对URI中的某一段（例如前面 URI 中的 <code>great value.html</code>）进行编码，<em>会对它发现的任何非标准字符进行编码<strong>①③④</strong>；</em>其对应的解码函数 decodeURIComponent()</td>
+</tr>
+</tbody>
+</table>
+<h4 id="一个URI可能包含以下五种类型的字符："><a href="#一个URI可能包含以下五种类型的字符：" class="headerlink" title="一个URI可能包含以下五种类型的字符："></a>一个URI可能包含以下五种类型的字符：</h4><p><img src="http://omho4boal.bkt.clouddn.com/2017-10-28-10.png" alt="image"></p>
+<p><strong>举例：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var uri = &quot;http://www.xxx.com/great value.html#start&quot;;</span><br><span class="line"></span><br><span class="line">//&quot;http://www.xxx.com/great%20value.html#start&quot;</span><br><span class="line"></span><br><span class="line">//&quot;http%3A%2F%2Fwww.xxx.com%2Fgreat%20value.html%23start&quot;</span><br></pre></td></tr></table></figure></p>
+<p>使用 <strong>encodeURI()</strong> 编码后的结果是除了空格之外的其他字符都原封不动，只有空格被替换成了%20。而 <strong>encodeURIComponent()</strong> 方法则会使用对应的编码替换所有非字母数字字符。这也正是可以对整个URI使用 <strong>encodeURI()</strong>，而只能对附加在现有URI后面的字符串使用 <strong>encodeURIComponent()</strong> 的原因所在。一 般 来 说 ， 我 们 使 用 <strong>encodeURIComponent()</strong> 方 法 的 时 候 要 比 使 用 <strong>encodeURI()</strong> 更多，因为往往更常见的是对查询字符串参数而不是对基础URI进行编码。</p>
+<p>与 <strong>encodeURI()</strong> 和 <strong>encodeURIComponent()</strong> 方法对应的两个方法分别是decodeURI()和decodeURIComponent()。其中，decodeURI()只能对使用encodeURI()替换的字符进行解码。<br>例如，它可将%20替换成一个空格，但不会对%23作任何处理，因为%23 表示井字号（#），而井字号不是使用encodeURI()替换的。同样地， decodeURIComponent()能够解码使用encodeURIComponent()编码的所有字符，即它可以解码任何特殊字符的编码。来看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var uri = &quot;http%3A%2F%2Fwww.xxx.com%2Fgreat%20value.html%23start&quot;;</span><br><span class="line">//http%3A%2F%2Fwww.xxx.com%2Fgreat value.html%23start</span><br><span class="line">alert(decodeURI(uri));</span><br><span class="line">//http://www.xxx.com/great value.html#start</span><br><span class="line">alert(decodeURIComponent(uri));</span><br></pre></td></tr></table></figure>
+<p>这里，变量 uri包含着一个由 <strong>encodeURIComponent()</strong> 编码的字符串。在第一次调用 <strong>decodeURI()</strong> 输出的结果中，只有%20被替换成了空格。而在第二次调用 <strong>decodeURIComponent()</strong> 输出的结果中，所有特殊字符的编码都被替换成了原来的字符，得到了一个未经转义的字符串。</p>
+<p>而<strong>escape()</strong> 不会对 ASCII 字母和数字进行编码，也不会对下面这些 ASCII 标点符号进行编码： * @ - _ + . / 。其他所有的字符都会被转义序列替换。</p>
+<p><img src="http://omho4boal.bkt.clouddn.com/2017-10-28-04.png" alt="image"></p>
+<p>因此在开发实践中一定要使用 URI 方法，不要使用<strong>escape()</strong> 和<strong>unescape()</strong> 方法。</p>
+<p>所以回到前面的问题，修改代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var url=&quot;http://127.0.0.1/zhiwen/index.php/Processing/d_manager?data=&quot;+encodeURIComponent(JSON.stringify(dddata));</span><br></pre></td></tr></table></figure>
+<p>对应的接收端代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$data_original = urldecode($data_encode);</span><br></pre></td></tr></table></figure>
+<p>在PHP中<strong>urldecode()</strong> 就是解码给出的已编码字符串中的任何 %##。</p>
+<p>至此数据的传输与接收问题已完全解决。</p>
+<p>然而在后面的测试中发现，单纯的将数据进行URL编码在手机版微信中不能成功：微信内部处理出错，导致不能发送请求。所以不能直接发送原始数据，还需进一步编码。</p>
+<p>修改后的传输代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var url=&quot;http://127.0.0.1/zhiwen/index.php/Processing/d_manager?data=&quot;+encodeURIComponent(base64encode(utf16to8(escape(JSON.stringify(dddata)))));</span><br></pre></td></tr></table></figure>
+<p><strong>base64encode()</strong> 设计此种编码是为了使二进制数据可以通过非纯 8-bit 的传输层传输，例如电子邮件的主体。 </p>
+<p>Base64常用于在通常处理文本数据的场合，表示、传输、存储一些二进制数据。包括MIME的email，email via MIME, 在XML中存储复杂数据。<br>Base64其实是一种简单的置换加密方式，但是BASE64的用处往往并不是为了防止信息泄露，而且为了方便传输，进过BASE64编码后的信息会比原始信息长，大概是4/3倍。</p>
+<p>使用以上代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encodeURIComponent(base64encode(utf16to8(escape(JSON.stringify(dddata)))))</span><br></pre></td></tr></table></figure>
+<p>加密。<br>还是会出现一个问题中文名称没有完全解码。<br><img src="http://omho4boal.bkt.clouddn.com/2017-10-28-02.png" alt="image"></p>
+<p>大概的原因应该是前面提到的<strong>escape()</strong> 对字符的十六进制格式值大于0xFF的，用一个四位序列：%uxxxx表示。而接收端代码使用<strong>urldecode()</strong> 解码，而在PHP中<strong>urldecode()</strong><br>只是解码给出的已编码字符串中的任何 %##。所以导致上面的中文字符无法正常显示。<br>后面将编码修改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">encodeURIComponent(base64encode(utf16to8(encodeURIComponent(JSON.stringify(dddata)))))</span><br></pre></td></tr></table></figure>
+<p>接收端：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">urldecode(base64_decode(urldecode($data_encode)))</span><br></pre></td></tr></table></figure>
+<p>即可完美解决编码、解码问题（包括中文）</p>
+<p><img src="http://omho4boal.bkt.clouddn.com/2017-10-28-03.png" alt="image"></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
