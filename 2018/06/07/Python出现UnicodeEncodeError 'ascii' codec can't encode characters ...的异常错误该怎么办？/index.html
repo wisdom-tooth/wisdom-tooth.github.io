@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="——智齿——">
 <meta property="og:description" content="背景无意间发现之前设置的定时爬虫任务，好几天数据没有更新了。先开始以为是定时任务出现了问题，使用cat /var/log/cron.log命令查看crontab日志，发现定时任务并没有什么大问题，只是出现了一个(CRON) info (No MTA installed, discarding output)的报错，网上查资料说是可能有两个原因：(1)命令中含有shell指令；(2)执行任务过程中会">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-07T03:41:40.910Z">
+<meta property="og:updated_time" content="2018-06-07T07:07:18.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python出现UnicodeEncodeError:&#39;ascii&#39; codec can&#39;t encode characters...的异常错误该怎么办？ | ——智齿——">
 <meta name="twitter:description" content="背景无意间发现之前设置的定时爬虫任务，好几天数据没有更新了。先开始以为是定时任务出现了问题，使用cat /var/log/cron.log命令查看crontab日志，发现定时任务并没有什么大问题，只是出现了一个(CRON) info (No MTA installed, discarding output)的报错，网上查资料说是可能有两个原因：(1)命令中含有shell指令；(2)执行任务过程中会">
@@ -177,14 +177,14 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>无意间发现之前设置的定时爬虫任务，好几天数据没有更新了。先开始以为是定时任务出现了问题，使用<code>cat /var/log/cron.log</code>命令查看crontab日志，发现定时任务并没有什么大问题，只是出现了一个<code>(CRON) info (No MTA installed, discarding output)</code>的报错，网上查资料说是可能有两个原因：(1)命令中含有shell指令；(2)执行任务过程中会往屏幕输出内容。爬虫代码自始至终都没有改变过，为什么一开始没有问题，就最近几天才出现问题呢？没有头绪，故没有再纠结这一块的问题。</p>
+    <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>无意间发现之前设置的定时爬虫任务，好几天数据没有更新了。先开始以为是定时任务出现了问题，使用<code>cat /var/log/cron.log</code>命令查看crontab日志，发现定时任务并没有什么大问题，只是出现了一个<code>(CRON) info (No MTA installed, discarding output)</code>的报错，网上查资料说是可能有两个原因：(1)命令中含有shell指令；(2)执行任务过程中会往屏幕输出内容。爬虫代码自始至终都没有改变过，为什么一开始没有问题，就最近几天才出现问题呢？没有头绪，故没有再纠结这一块的问题。</p>
 <p>因为该爬虫任务在数据整理时，会从一个json文件（eg:1.json）生成另一个json文件(2.json)。无意间看了眼两个json文件的时间，发现1.json的日期就是昨天的日期，而2.json还是整个爬虫任务没有数据更新的那个日期。所以判断应该是在从1.json生成2.json这个过程出现了问题，导致程序没有执行完。我们找到处理该过程的python文件(eg:thresher.py)，保留少部分数据（以便测试过程快速完成）单独运行thresher.py，程序顺利执行，并没有报错，证明程序代码应该是没有问题的，应该是数据的问题。回到1.json文件，发现随着爬虫数据的增加，该文件已经增长到80+MB，怀疑是不是因为json文件过大，导致python读取过程中出现bug。</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>我们将1.json文件拖回本地，运行thresher.py，报错。谢天谢地，终于找到了问题。报错内容如下：</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>我们将1.json文件拖回本地，运行thresher.py，报错。谢天谢地，终于找到了问题。报错内容如下：</p>
 <p><code>UnicodeEncodeError: &#39;ascii&#39; codec can&#39;t encode characters in position 0-2: ordinal not in range(128)</code><br>可以看到是编码的问题：ASCII无法编码0-2位置的字符。忽然意识到，Python脚本文件是utf-8编码方式，我们使用相关代码查看python默认环境编码：</p>
 <pre><code>import sys
 print sys.getdefaultencoding()
 </code></pre><p>发现是ASCII编码方式，由此发现错误的原因是Python调用默认的ASCII编码解码程序去处理字符流，当字符流不属于ASCII范围，就会抛出异常（<code>ordinal not in range(128)</code>）。</p>
-<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><p>找到问题，解决起来就很简单了。我们只需要修改默认的编码方式即可。也就是我们使用</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><p>找到问题，解决起来就很简单了。我们只需要修改默认的编码方式即可。也就是我们使用</p>
 <pre><code>import sys
 sys.setdefaultencoding(&apos;utf-8&apos;)
 </code></pre><p>来将当前的字符处理模式修改为utf-8编码模式。但是还是有一个小坑就是，直接按上面代码调用的话，会出现异常，显示sys没有<code>setdefaultencoding</code>方法，我们查询相关资料后发现，正确的使用方法应该是</p>
