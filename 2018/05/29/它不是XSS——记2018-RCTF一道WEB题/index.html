@@ -24,7 +24,7 @@
 <meta property="og:site_name" content="——智齿——">
 <meta property="og:description" content="恰巧这一次的CTF还真没有关注，比赛完了之后，无意间看到了相关的writeup，大致浏览了下，觉得好像还是有点意思的，于是便趁着比赛环境还在，自己玩了玩。 打开题目地址http://amp.2018.teamrois.cn，可以看到以下这个页面，提示输入name作为请求参数。试着输入http://amp.2018.teamrois.cn/?name=123，传入name参数，可以看到以下返回。可以">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://yoursite.com/.com//1.png">
+<meta property="og:image" content="https://github.com/wisdom-tooth/wisdom-tooth.github.io/blob/master/2018/05/29/%E5%AE%83%E4%B8%8D%E6%98%AFXSS%E2%80%94%E2%80%94%E8%AE%B02018-RCTF%E4%B8%80%E9%81%93WEB%E9%A2%98/1.png">
 <meta property="og:image" content="http://yoursite.com/.com//2.png">
 <meta property="og:image" content="http://yoursite.com/.com//3.png">
 <meta property="og:image" content="http://yoursite.com/.com//4.png">
@@ -37,11 +37,11 @@
 <meta property="og:image" content="http://yoursite.com/.com//11.png">
 <meta property="og:image" content="http://yoursite.com/.com//12.png">
 <meta property="og:image" content="http://yoursite.com/.com//13.png">
-<meta property="og:updated_time" content="2019-07-29T14:14:43.121Z">
+<meta property="og:updated_time" content="2019-07-29T14:30:10.117Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="它不是 XSS ——记 2018-RCTF一道WEB题：AMP | ——智齿——">
 <meta name="twitter:description" content="恰巧这一次的CTF还真没有关注，比赛完了之后，无意间看到了相关的writeup，大致浏览了下，觉得好像还是有点意思的，于是便趁着比赛环境还在，自己玩了玩。 打开题目地址http://amp.2018.teamrois.cn，可以看到以下这个页面，提示输入name作为请求参数。试着输入http://amp.2018.teamrois.cn/?name=123，传入name参数，可以看到以下返回。可以">
-<meta name="twitter:image" content="http://yoursite.com/.com//1.png">
+<meta name="twitter:image" content="https://github.com/wisdom-tooth/wisdom-tooth.github.io/blob/master/2018/05/29/%E5%AE%83%E4%B8%8D%E6%98%AFXSS%E2%80%94%E2%80%94%E8%AE%B02018-RCTF%E4%B8%80%E9%81%93WEB%E9%A2%98/1.png">
     
     
     
@@ -191,7 +191,7 @@ classes that you can use:
   </header>
 
   <section id="post-content" class="article-content post">
-    <p><img src="/.com//1.png" alt="image"><br>恰巧这一次的CTF还真没有关注，比赛完了之后，无意间看到了相关的writeup，大致浏览了下，觉得好像还是有点意思的，于是便趁着比赛环境还在，自己玩了玩。</p>
+    <p><img src="https://github.com/wisdom-tooth/wisdom-tooth.github.io/blob/master/2018/05/29/%E5%AE%83%E4%B8%8D%E6%98%AFXSS%E2%80%94%E2%80%94%E8%AE%B02018-RCTF%E4%B8%80%E9%81%93WEB%E9%A2%98/1.png" alt="image"><br>恰巧这一次的CTF还真没有关注，比赛完了之后，无意间看到了相关的writeup，大致浏览了下，觉得好像还是有点意思的，于是便趁着比赛环境还在，自己玩了玩。</p>
 <p>打开题目地址<code>http://amp.2018.teamrois.cn</code>，可以看到以下这个页面，提示输入name作为请求参数。<br><img src="/.com//2.png" alt="image"><br>试着输入<code>http://amp.2018.teamrois.cn/?name=123</code>，传入name参数，可以看到以下返回。<br><img src="/.com//3.png" alt="image"><br>可以看到将我们传入的name参数输出到了页面，并且提示说我被攻击，还有一个“STOP TRACKING ME”的按钮，我们点击按钮，先开始一直没有反应，后面发现它使用了谷歌的recaptcha验证码<br><img src="/.com//4.png" alt="image"><br>我们通过验证之后，得到<br><img src="/.com//5.png" alt="image"><br>显示已经记录下了我们的request，并且联系了admin。<br>到这一步，就想到了CTF惯用套路。查看网络请求，果然在cookie中找到了提示信息：”flag_is_in_admin_cookie”。<br><img src="/.com//6.png" alt="image"><br>综合以上信息：name参数会在页面输出；request会记录并发送给admin；flag_is_in_admin_cookie 。想当然的就以为是xss，所以接下来就开始测试name参数，<code>http://amp.2018.teamrois.cn/?name=&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;</code>发现并没有弹窗，打开调试看一下<br><img src="/.com//7.png" alt="image"><br>可见，其使用了内容安全策略（CSP）。<br><img src="/.com//8.jpg" alt="image"><br>Content Security Policy（CSP）内容安全策略，是一个附加的安全层，有助于检测并缓解某些类型的攻击，包括跨站脚本（XSS）和数据注入攻击。通过定义一个名为Content-Security-Policy 的header来让浏览器仅载入可信域的资源文件，限制使用内联脚本，禁止页面中使用<code>&lt;script&gt;</code>标签，控制ajax请求域等等。<br>攻击者想要窃取数据，用户浏览器就必须和攻击者的某个地址进行通信，否则攻击者就没有办法接收到最终窃取到的信息结果，而CSP可以用来定义哪些域是被信任的，如果攻击者设定的域不属于被设定的信任域，那么信息就没有办法被偷出去。这样就起到了防御XSS的效果（如果想更深层次的了解CSP，可自行百度）。    </p>
 <p>此处的CSP设置了一个<code>script-src</code>值，该属性开启将对当前页面上可执行的JS源进行了限制。<br><img src="/.com//9.png" alt="image"><br>从页面源代码可以看到，每一个引用的javascript代码（script标签）都有一个nonce字段，其value值是服务器端动态的生成字符串，只有包含nonce字段并且字符串值与服务端相等的script块才可以被执行。从上图中可以看出该实例中，nonce值固定不变。<br>我们下来就尝试绕过。</p>
 <p>针对nonce的绕过，我们一般是利用页面上xss可利用点之后较近的js引用中的nonce字段值。举例来说就是：</p>
